@@ -2,7 +2,6 @@
 import os
 import time
 from datetime import datetime
-import time
 from sys import platform
 start_time = time.time()
 
@@ -271,38 +270,47 @@ def desired_directories():
         fp.write('API_KEY =')
         print('created .env file')
         pass
+
     with open(r'.gitconfig', 'w') as fp:
         fp.write(gitconfig)
         print('created .gitconfig file')
         pass
+
     with open(r'.gitignore', 'w') as fp:
         fp.write(gitignore)
         print('created .gitignore file')
         pass
+
     with open(r'app/main/scripts/logging/logging.js', 'w') as fp:
         fp.write(logging_js)
         print('created logging.js file in app/main/scripts/logging/logging.js')
         pass
+
     with open(r'app/main/scripts/script.js', 'w') as fp:
         fp.write('')
         print('created script.js file in app/main/scripts/script.js')
         pass
+    
     with open(r'app/main/index.html', 'w') as fp:
         fp.write(main_index_html)
         print('created index.js file in app/main/index.html')
         pass
+
     with open(r'app/main/style.css', 'w') as fp:
         fp.write('')
         print('created style.css file in app/main/style.css')
         pass
+
     with open(r'app/loading/index.html', 'w') as fp:
         fp.write(loading_index_html)
         print('created index.html file in app/loading/index.html')
         pass
+
     with open(r'app/loading/style.css', 'w') as fp:
         fp.write(loading_style_css)
         print('created index.html file in app/loading/style.css')
         pass
+
     # Get current time and 
     currentTime = datetime.now().strftime("%H:%M:%S")
     print('finished creating desired directories, happy coding!\n\nFinished at: ' + currentTime + '\nTotal duration: ' + "%s seconds" % (time.time() - start_time))
