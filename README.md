@@ -13,3 +13,9 @@ If you have any more questions you can always message me on [discord](https://di
 You can download everything seperately but there's also a main script (script.py) in the main folder that has everything in 1 file. For the diehard users that might be a better option but I will leave that up to you.
 
 You can install the pip packages from the requirements.txt but the program will work without them.
+
+## Known issues
+
+### laravel issues
+
+Depending on how you installed composer on windows the program will not detect it. The troubleshoot issues for this are to reinstall composer and add it to path (path is different based on your installation). Personally I had the most luck with installing composer through the terminal/konsole.
