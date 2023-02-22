@@ -7,3 +7,9 @@ I will be making more of these script and they will be free for anyone to downlo
 When there are other packages to be installed it will be said in the README and in a requirements.txt.
 
 If you have any more questions you can always message me on [discord](https://discord.com/users/524229083014365194)
+
+## How to use
+
+You can download everything seperately but there's also a main script (script.py) in the main folder that has everything in 1 file. For the diehard users that might be a better option but I will leave that up to you.
+
+You can install the pip packages from the requirements.txt but the program will work without them.
