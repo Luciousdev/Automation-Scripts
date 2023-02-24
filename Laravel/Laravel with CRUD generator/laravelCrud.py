@@ -55,6 +55,7 @@ def generate_crud(project_name, install_dir, sql_file_path, model_namespace, db_
         os.system(f"php artisan make:model {model_name} --migration")
         os.system(f"php artisan make:controller {model_name}Controller --resource --model={model_name}")
         os.system(f"php artisan make:request {table_name.title()}Request")
+        os.system(f"php artisan key:generate")
 
         # Generate view files
         os.makedirs(os.path.join('resources', 'views', table_name.lower()), exist_ok=True)
