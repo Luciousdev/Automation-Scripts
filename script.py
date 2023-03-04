@@ -527,7 +527,7 @@ def install_laravel(project_name, install_dir, db_name, db_user, db_password):
     if platform.system() == 'Windows':
         cmd = ['cmd', '/c', 'composer', 'create-project', '--prefer-dist', 'laravel/laravel:^8.0', os.path.join(install_dir, project_name)]
     else:
-        cmd = ['composer', 'create-project', '--prefer-dist', 'laravel/laravel:^8.0', os.path.join(install_dir, project_name)]
+        cmd = ['composer', 'create-project', '--prefer-dist', 'laravel/laravel', os.path.join(install_dir, project_name)]
     subprocess.run(cmd)
     os.chdir(os.path.join(install_dir, project_name))
     
@@ -566,10 +566,11 @@ def generate_crud(project_name, install_dir, sql_file_path, model_namespace, db_
 
         # Generate model and controller files
         os.system(f"php artisan make:model {model_name} --migration")
+        os.system(f"php artisan migrate")
+        os.system(f"php artisan migrate:refresh")
         os.system(f"php artisan make:controller {model_name}Controller --resource --model={model_name}")
         os.system(f"php artisan make:request {table_name.title()}Request")
         os.system(f"php artisan key:generate")
-
         # Generate view files
         os.makedirs(os.path.join('resources', 'views', table_name.lower()), exist_ok=True)
         with open(os.path.join('resources', 'views', table_name.lower(), 'index.blade.php'), 'w') as f:
