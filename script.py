@@ -649,7 +649,7 @@ def install_laravel_only(project_name, install_dir, db_name, db_user, db_passwor
     # Update composer.json to require PHP ^8.0 and illuminate/validation ^8.42
     with open('composer.json', 'r+') as f:
         composer_json = json.load(f)
-        composer_json['require']['php'] = '^8.0'
+        composer_json['require']['php'] = '^8.1'
         composer_json['require']['illuminate/validation']
         composer_json['require']['laravel/ui']
         composer_json['require']['livewire/livewire']
