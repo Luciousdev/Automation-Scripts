@@ -535,9 +535,9 @@ def install_laravel(project_name, install_dir, db_name, db_user, db_password):
     with open('composer.json', 'r+') as f:
         composer_json = json.load(f)
         composer_json['require']['php'] = '^8.1'
-        composer_json['require']['illuminate/validation']
-        composer_json['require']['laravel/ui']
-        composer_json['require']['livewire/livewire']
+        composer_json['require']['illuminate/validation'] = '*'
+        composer_json['require']['laravel/ui'] = '*'
+        composer_json['require']['livewire/livewire'] = '*'
         f.seek(0)
         json.dump(composer_json, f, indent=4)
         f.truncate()
@@ -616,7 +616,7 @@ def laravel():
     os.chdir(os.path.join(install_dir, project_name))
     with open('composer.json', 'r') as f:
         composer_data = json.load(f)
-        composer_data['require']['laravel/ui'] = '^3.4'
+        composer_data['require']['laravel/ui'] = '*'
         with open('composer.json', 'w') as fw:
             json.dump(composer_data, fw, indent=4)
     subprocess.run(['composer', 'update'])
@@ -650,9 +650,9 @@ def install_laravel_only(project_name, install_dir, db_name, db_user, db_passwor
     with open('composer.json', 'r+') as f:
         composer_json = json.load(f)
         composer_json['require']['php'] = '^8.1'
-        composer_json['require']['illuminate/validation']
-        composer_json['require']['laravel/ui']
-        composer_json['require']['livewire/livewire']
+        composer_json['require']['illuminate/validation'] = '*'
+        composer_json['require']['laravel/ui'] = '*'
+        composer_json['require']['livewire/livewire'] = '*'
         f.seek(0)
         json.dump(composer_json, f, indent=4)
         f.truncate()
