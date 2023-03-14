@@ -6,7 +6,7 @@ Here you can find the laravel installation in seperate files instead of the bund
 
 ## Requirements
 
-You'll need to have PHP version 8.1 and composer installed for the script to work.
+You'll need to have PHP version 8.1, composer, nodejs and the packages in requirements.txt installed for the script to work.
 
 ## Known issues (with solution)
 
