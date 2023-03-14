@@ -19,3 +19,9 @@ You can install the pip packages from the requirements.txt but the program will 
 ### laravel issues
 
 Depending on how you installed composer on windows the program will not detect it. The troubleshoot issues for this are to reinstall composer and add it to path (path is different based on your installation). Personally I had the most luck with installing composer through the terminal/konsole.
+
+## TODO:
+
+- Update the seperate scripts to the new version (only for laravel since the others are already up to date.).
+- Create a GUI for the installers
+- More testing on other linux distrobutions and maybe mac?
