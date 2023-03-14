@@ -6,9 +6,12 @@ from datetime import datetime
 from sys import platform
 import platform
 import subprocess
-import shutil
+# import MySQLdb
+import mysql.connector
 import sqlite3
 import json
+import shutil
+
 start_time = time.time()
 
 
@@ -76,7 +79,7 @@ def electron():
     }
     """
 
-    gitignore ="""
+    gitignore = """
     node_modules/
     *.xcf
     .env
@@ -176,7 +179,6 @@ def electron():
     }
     """
 
-
     main_index_html = """
     <!DOCTYPE html>
     <html lang="en">
@@ -208,7 +210,8 @@ def electron():
     # Ask user if they want to create basic desired directories
     basicDirectory = input('Do you want to create the desired directories? [y/n/info]\n')
     if basicDirectory == "y":
-        print("Please confirm your options:\n\nProject directory: " + directory + "\nPackages to install:\n\nelectron\ndotenv\n\nCreating the following directories/files:\napp/main/scripts/logging\napp/loading/img\n.gitconfig\n.gitignore\n.env\nindex.js\nindex.html (main)\nscript.js (main)\nstyle.css (main)\nlogging.js\nindex.html (loading)\nstyle.css (loading)")
+        print(
+            "Please confirm your options:\n\nProject directory: " + directory + "\nPackages to install:\n\nelectron\ndotenv\n\nCreating the following directories/files:\napp/main/scripts/logging\napp/loading/img\n.gitconfig\n.gitignore\n.env\nindex.js\nindex.html (main)\nscript.js (main)\nstyle.css (main)\nlogging.js\nindex.html (loading)\nstyle.css (loading)")
         accept = input("Do you accept these changes? [y/n]\n")
         if accept == "y":
             # Change directory to user desired directory
@@ -223,7 +226,8 @@ def electron():
         else:
             electron()
     elif basicDirectory == "n":
-        print("Please confirm your options:\n\nProject directory: " + directory + "\nPackages to install:\n\nelectron\ndotenv\n\nWon't create any other files")
+        print(
+            "Please confirm your options:\n\nProject directory: " + directory + "\nPackages to install:\n\nelectron\ndotenv\n\nWon't create any other files")
         accept = input("Do you accept these changes? [y/n]\n")
         if accept == "y":
             # Change directory to user desired directory
@@ -238,14 +242,12 @@ def electron():
         else:
             electron()
     elif basicDirectory == "info":
-        print("The following packages/files will be installed when running this script.\n\nPackages to install:\n\nelectron\ndotenv\n\nCreating the following directories/files (These will NOT be installed if you select 'n'):\napp/main/scripts/logging\napp/loading/img\n.gitconfig\n.gitignore\n.env\nindex.js\nindex.html (main)\nscript.js (main)\nstyle.css (main)\nlogging.js\nindex.html (loading)\nstyle.css (loading)")
+        print(
+            "The following packages/files will be installed when running this script.\n\nPackages to install:\n\nelectron\ndotenv\n\nCreating the following directories/files (These will NOT be installed if you select 'n'):\napp/main/scripts/logging\napp/loading/img\n.gitconfig\n.gitignore\n.env\nindex.js\nindex.html (main)\nscript.js (main)\nstyle.css (main)\nlogging.js\nindex.html (loading)\nstyle.css (loading)")
         electron()
     else:
         print("That was not an option please try again!")
         electron()
-
-
-
 
     def desired_directories():
         print('Start creating desired directories')
@@ -308,7 +310,7 @@ def electron():
             fp.write('')
             print('created script.js file in app/main/scripts/script.js')
             pass
-        
+
         with open(r'app/main/index.html', 'w') as fp:
             fp.write(main_index_html)
             print('created index.js file in app/main/index.html')
@@ -329,16 +331,19 @@ def electron():
             print('created index.html file in app/loading/style.css')
             pass
 
-        # Get current time and 
+        # Get current time and
         currentTime = datetime.now().strftime("%H:%M:%S")
-        print('finished creating desired directories, happy coding!\n\nFinished at: ' + currentTime + '\nTotal duration: ' + "%s seconds" % (time.time() - start_time))
-
+        print(
+            'finished creating desired directories, happy coding!\n\nFinished at: ' + currentTime + '\nTotal duration: ' + "%s seconds" % (
+                        time.time() - start_time))
 
     def not_desired():
-        print('Did not create desired directories') 
-        # Get current time and 
+        print('Did not create desired directories')
+        # Get current time and
         currentTime = datetime.now().strftime("%H:%M:%S")
-        print('finished creating desired directories, happy coding!\n\nFinished at: ' + currentTime + '\nTotal duration: ' + "%s seconds" % (time.time() - start_time))
+        print(
+            'finished creating desired directories, happy coding!\n\nFinished at: ' + currentTime + '\nTotal duration: ' + "%s seconds" % (
+                        time.time() - start_time))
 
 
 # ----------------------------
@@ -358,7 +363,8 @@ def Yii():
     directory = input('Please enter your project directory:\n')
     projectName = input('Please enter the desired project name: ')
     databaseName = input('Please enter your database name (optional): ')
-    print("Please verify these changes: \n\nInstallation directory: " + directory + "\nProject name: " + projectName + "\nDatabase name: " + databaseName + "\n\n")
+    print(
+        "Please verify these changes: \n\nInstallation directory: " + directory + "\nProject name: " + projectName + "\nDatabase name: " + databaseName + "\n\n")
     acceptChanges = input("Do you accept these changes? [y/n]")
 
     if acceptChanges == 'y':
@@ -368,7 +374,7 @@ def Yii():
 
         return [
             'class' => 'yii\db\Connection',
-            'dsn' => 'mysql:host=localhost;dbname=""" + projectName +"""',
+            'dsn' => 'mysql:host=localhost;dbname=""" + projectName + """',
             'username' => 'root',
             'password' => '',
             'charset' => 'utf8',
@@ -383,7 +389,7 @@ def Yii():
 
         return [
             'class' => 'yii\db\Connection',
-            'dsn' => 'mysql:host=localhost;dbname=""" + databaseName +"""',
+            'dsn' => 'mysql:host=localhost;dbname=""" + databaseName + """',
             'username' => 'root',
             'password' => '',
             'charset' => 'utf8',
@@ -467,7 +473,6 @@ def Yii():
 
         return $config;"""
 
-
         if len(databaseName) == 0:
             # Change directory to user desired directory
             os.chdir(directory)
@@ -477,17 +482,17 @@ def Yii():
             os.system('composer create-project --prefer-dist yiisoft/yii2-app-basic ' + projectName)
 
             print("Using project name for as database name")
-            os.chdir(directory+"/"+projectName)
+            os.chdir(directory + "/" + projectName)
             time.sleep(1)
-            # Changing neccesary files 
+            # Changing neccesary files
             with open(r'config/db.php', "w") as f:
                 f.write(db_config)
-                print('Changed the db.php file in the ' +projectName+'/config/db.php')
+                print('Changed the db.php file in the ' + projectName + '/config/db.php')
 
             with open(r'config/web.php', "w") as f:
                 f.write(web_php)
-                print('Changed the db.php file in the ' +projectName+'/config/web.php')
-        else: 
+                print('Changed the db.php file in the ' + projectName + '/config/web.php')
+        else:
             # Change directory to user desired directory
             os.chdir(directory)
             time.sleep(2)
@@ -496,25 +501,28 @@ def Yii():
             os.system('composer create-project --prefer-dist yiisoft/yii2-app-basic ' + projectName)
 
             print("Using database name for as database name")
-            os.chdir(directory+"/"+projectName)
+            os.chdir(directory + "/" + projectName)
             time.sleep(1)
-            # Changing neccesary files 
+            # Changing neccesary files
             with open(r'config/db.php', "w") as f:
                 f.write(db_config_dbname)
-                print('Changed the db.php file in the ' +projectName+'/config/db.php')
+                print('Changed the db.php file in the ' + projectName + '/config/db.php')
 
             with open(r'config/web.php', "w") as f:
                 f.write(web_php)
-                print('Changed the db.php file in the ' +projectName+'/config/web.php')
+                print('Changed the db.php file in the ' + projectName + '/config/web.php')
 
-        # Get current time and 
+        # Get current time and
         currentTime = datetime.now().strftime("%H:%M:%S")
-        print('finished creating desired directories, happy coding!\n\nFinished at: ' + currentTime + '\nTotal duration: ' + "%s seconds" % (time.time() - start_time) + "\n\nStart Yii with the command: php yii serve")
+        print(
+            'finished creating desired directories, happy coding!\n\nFinished at: ' + currentTime + '\nTotal duration: ' + "%s seconds" % (
+                        time.time() - start_time) + "\n\nStart Yii with the command: php yii serve")
 
     elif acceptChanges == 'n':
         exit()
     else:
         Yii()
+
 
 # ----------------------------
 # -                          -
@@ -522,37 +530,234 @@ def Yii():
 # -                          -
 # ----------------------------
 
-
 def install_laravel(project_name, install_dir, db_name, db_user, db_password):
     if platform.system() == 'Windows':
-        cmd = ['cmd', '/c', 'composer', 'create-project', '--prefer-dist', 'laravel/laravel:^8.0', os.path.join(install_dir, project_name)]
+        cmd = ['cmd', '/c', 'composer', 'create-project', '--prefer-dist', 'laravel/laravel:^10.0',
+               os.path.join(install_dir, project_name)]
     else:
-        cmd = ['composer', 'create-project', '--prefer-dist', 'laravel/laravel', os.path.join(install_dir, project_name)]
+        cmd = ['composer', 'create-project', '--prefer-dist', 'laravel/laravel:^10.0',
+               os.path.join(install_dir, project_name)]
     subprocess.run(cmd)
     os.chdir(os.path.join(install_dir, project_name))
-    
+
     # Update composer.json to require PHP ^8.0 and illuminate/validation ^8.42
     with open('composer.json', 'r+') as f:
         composer_json = json.load(f)
-        composer_json['require']['php'] = '^8.1'
+        composer_json['require']['php'] = '*'
         composer_json['require']['illuminate/validation'] = '*'
         composer_json['require']['laravel/ui'] = '*'
         composer_json['require']['livewire/livewire'] = '*'
         f.seek(0)
         json.dump(composer_json, f, indent=4)
         f.truncate()
-    
-    subprocess.run(['cp', '.env.example', '.env'])
-    subprocess.run(['sed', '-i', 's/DB_DATABASE=.*/DB_DATABASE=' + db_name + '/', '.env'])
-    subprocess.run(['sed', '-i', 's/DB_USERNAME=.*/DB_USERNAME=' + db_user + '/', '.env'])
-    subprocess.run(['sed', '-i', 's/DB_PASSWORD=.*/DB_PASSWORD=' + db_password + '/', '.env'])
 
+    # Copy .env.example to .env
+    shutil.copy('.env.example', '.env')
+
+    # Replace DB_DATABASE, DB_USERNAME, and DB_PASSWORD values in .env file
+    with open('.env', 'r') as f:
+        env_lines = f.readlines()
+
+    with open('.env', 'w') as f:
+        for line in env_lines:
+            if line.startswith('DB_DATABASE='):
+                line = 'DB_DATABASE={}\n'.format(db_name)
+            elif line.startswith('DB_USERNAME='):
+                line = 'DB_USERNAME={}\n'.format(db_user)
+            elif line.startswith('DB_PASSWORD='):
+                line = 'DB_PASSWORD={}\n'.format(db_password)
+            f.write(line)
+
+    # Run artisan key:generate command
+    subprocess.run(['php', 'artisan', 'key:generate'])
+
+
+def get_fields(table_name, db_user, db_password, db_name):
+    # Replace with your own database configuration
+    db = MySQLdb.connect(host="localhost", user=db_user, passwd=db_password, db=db_name)
+    cursor = db.cursor()
+
+    # Get column names for table
+    cursor.execute("SHOW COLUMNS FROM " + table_name)
+    fields = cursor.fetchall()
+
+    # Return list of field names
+    return [field[0] for field in fields]
+
+
+def get_fieldsLINUX(table_name, db_user, db_password, db_name):
+    # Replace with your own database configuration
+    db = mysql.connector.connect(
+        host="localhost",
+        user=db_user,
+        password=db_password,
+        database=db_name
+    )
+    cursor = db.cursor()
+
+    # Get column names for table
+    cursor.execute("SHOW COLUMNS FROM " + table_name)
+    fields = cursor.fetchall()
+
+    # Return list of field names
+    return [field[0] for field in fields]
 
 
 def generate_crud(project_name, install_dir, sql_file_path, model_namespace, db_user, db_password, db_name):
+    if platform.system() == 'Windows':
+        # Read SQL file contents
+        os.chdir(os.path.join(install_dir, project_name))
+        with open(sql_file_path, 'r', encoding='utf-8') as f:
+            sql_file_contents = f.read()
+
+        # Extract table names from SQL file contents
+        table_names = re.findall(r'CREATE TABLE `([a-zA-Z0-9_]+)`', sql_file_contents)
+
+        # Generate migration, model, controller, and view files for each table
+        for table_name in table_names:
+            migration_name = f"create_{table_name}_table"
+            model_name = f"{model_namespace}\\{table_name.title()}"
+
+            # Check if table already exists
+            output = subprocess.run(
+                ["mysql.exe", "-u", db_user, "-p" + db_password, "-D", db_name, "-s", "-N", "-e", "SHOW TABLES"],
+                capture_output=True, text=True)
+            tables = output.stdout.splitlines()
+            if table_name in tables:
+                print(f"Table {table_name} already exists, skipping migration...")
+                continue
+
+            # Generate migration file
+            subprocess.run(["php.exe", "artisan", "make:migration", migration_name, "--create=" + table_name])
+
+            # Generate model and controller files
+            subprocess.run(["php.exe", "artisan", "make:model", model_name, "--migration"])
+            subprocess.run(["php.exe", "artisan", "migrate"])
+            subprocess.run(["php.exe", "artisan", "migrate:refresh"])
+            subprocess.run(["php.exe", "artisan", "make:controller", model_name + "Controller", "--resource",
+                            "--model=" + model_name])
+            subprocess.run(["php.exe", "artisan", "make:request", table_name.title() + "Request"])
+            subprocess.run(["php.exe", "artisan", "key:generate"])
+
+            # Generate view files for each table
+            os.makedirs(os.path.join('resources', 'views', table_name.lower()), exist_ok=True)
+            with open(os.path.join('resources', 'views', table_name.lower(), 'create.blade.php'), 'w') as f:
+                f.write(
+                    '@extends(\'layouts.base\')\n\n@section(\'content\')\n    <h1>{{ $title }}</h1>\n    <form method="POST" action="{{ route(\'' + table_name.lower() + '.store\') }}">\n        @csrf\n')
+                desc_output = subprocess.run(
+                    ["mysql.exe", "-u", db_user, "-p" + db_password, "-D", db_name, "-s", "-N", "-e",
+                     f"desc {table_name}"], capture_output=True, text=True)
+                fields = desc_output.stdout.splitlines()
+                for field in fields:
+                    if field.split()[0] == "id":
+                        continue
+                    f.write(
+                        f'        <div class="form-group">\n            <label for="{field.split()[0]}">{field.split()[0]}</label>\n            <input type="text" name="{field.split()[0]}" class="form-control" id="{field.split()[0]}" placeholder="{field.split()[0]}">\n        </div>\n')
+                f.write(
+                    f'        <button type="submit" class="btn btn-primary">Submit</button>\n    </form>\n@endsection\n')
+            with open(os.path.join('resources', 'views', table_name.lower(), 'edit.blade.php'), 'w') as f:
+                f.write(
+                    '@extends(\'layouts.base\')\n\n@section(\'content\')\n    <h1>{{ $title }}</h1>\n    <form method="POST" action="{{ route(\'' + table_name.lower() + '.update\', [${table_name.lower().rstrip("s")}->{table_name}_id]) }}">\n        @csrf\n        @method(\'PUT\')\n')
+                desc_output = subprocess.run(
+                    ["mysql.exe", "-u", db_user, "-p" + db_password, "-D", db_name, "-s", "-N", "-e",
+                     f"desc {table_name}"], capture_output=True, text=True)
+                fields = desc_output.stdout.splitlines()
+                for field in fields:
+                    if field.split()[0] == "id":
+                        continue
+                    f.write(
+                        f'        <div class="form-group">\n            <label for="{field.split()[0]}">{field.split()[0]}</label>\n            <input type="text" name="{field.split()[0]}" value="{{ ${table_name.lower().rstrip("s")}->{field.split()[0]} }}" class="form-control" id="{field.split()[0]}" placeholder="{field.split()[0]}">\n        </div>\n')
+                f.write(
+                    f'        <button type="submit" class="btn btn-primary">Update</button>\n    </form>\n@endsection\n')
+            with open(os.path.join('resources', 'views', table_name.lower(), 'show.blade.php'), 'w') as f:
+                f.write(
+                    '@extends(\'layouts.base\')\n\n@section(\'content\')\n    <h1>{{ $title }}</h1>\n    <table class="table">\n')
+                desc_output = subprocess.run(
+                    ["mysql.exe", "-u", db_user, "-p" + db_password, "-D", db_name, "-s", "-N", "-e",
+                     f"desc {table_name}"], capture_output=True, text=True)
+            with open(os.path.join('resources', 'views', table_name.lower(), 'index.blade.php'), 'w') as f:
+                f.write(
+                    '@extends(\'layouts.base\')\n\n@section(\'content\')\n    <h1>index</h1>\n    <table class="table">\n')
+                desc_output = subprocess.run(
+                    ["mysql.exe", "-u", db_user, "-p" + db_password, "-D", db_name, "-s", "-N", "-e",
+                     f"desc {table_name}"], capture_output=True, text=True)
+            # Generate resource routes for each table
+            with open(os.path.join('routes', 'web.php'), 'a') as f:
+                f.write(
+                    f"\nRoute::get('{table_name.lower()}', [App\Http\Controllers\{model_name.title()}Controller::class, 'index']);\n")
+
+            # Generate controller file name based on table name
+            controller_name = table_name.title() + "Controller"
+            controller_file_name = controller_name + ".php"
+
+            # Generate controller file contents
+            controller_contents = "<?php\n\nnamespace App\Http\Controllers;\n\nuse Illuminate\Http\Request;\nuse App\\Models\\" + model_namespace + "\\" + table_name.title() + ";\n\nclass " + controller_name + " extends Controller\n{\n"
+
+            # Generate index function
+            controller_contents += "    public function index()\n    {\n        $" + table_name + " = " + table_name.title() + "::all();\n        return view('" + table_name + ".index', compact('" + table_name + "'));\n    }\n\n"
+
+            # Generate create function
+            controller_contents += "    public function create()\n    {\n        return view('" + table_name + ".create');\n    }\n\n"
+
+            # Generate store function
+            controller_contents += "    public function store(Request $request)\n    {\n        $request->validate([\n"
+            # Add validation rules for each field
+            for field in get_fields(table_name, db_user, db_password, db_name):
+                controller_contents += "            '" + field + "' => 'required',\n"
+            controller_contents += "        ]);\n\n        " + table_name.title() + "::create($request->all());\n\n        return redirect()->route('" + table_name + ".index')\n            ->with('success', '" + table_name.title() + " created successfully.');\n    }\n\n"
+
+            # Generate show function
+            controller_contents += "    public function show($" + table_name + ")\n    {\n        return view('" + table_name + ".show', compact('" + table_name + "'));\n    }\n\n"
+
+            # Generate edit function
+            controller_contents += "    public function edit($" + table_name + ")\n    {\n        return view('" + table_name + ".edit', compact('" + table_name + "'));\n    }\n\n"
+
+            # Generate update function
+            controller_contents += "    public function update(Request $request, $" + table_name + ")\n    {\n        $request->validate([\n"
+            # Add validation rules for each field
+            for field in get_fields(table_name, db_user, db_password, db_name):
+                controller_contents += "            '" + field + "' => 'required',\n"
+            controller_contents += "        ]);\n\n        $" + table_name + "->update($request->all());\n\n        return redirect()->route('" + table_name + ".index')\n            ->with('success', '" + table_name.title() + " updated successfully.');\n    }\n\n"
+
+            # Generate destroy function
+            controller_contents += "    public function destroy($" + table_name + ")\n    {\n        $" + table_name + "->delete();\n\n        return redirect()->route('" + table_name + ".index')\n            ->with('success', '" + table_name.title() + " deleted successfully.');\n    }\n}\n"
+
+            # Write controller file to disk
+            with open(os.path.join("app/Http/Controllers", controller_file_name), "w", encoding="utf-8") as f:
+                f.write(controller_contents)
+
+    # Determine path separator based on current OS
+    path_separator = os.path.sep
+
+    # Define path to base.blade.php file
+    base_blade_path = os.path.join("resources", "views", "layouts", "base.blade.php")
+
+    # Create directory if it doesn't exist
+    os.makedirs(os.path.dirname(base_blade_path), exist_ok=True)
+
+    # Create base.blade.php file if it doesn't exist
+    if not os.path.exists(base_blade_path):
+        with open(base_blade_path, "w") as f:
+            f.write(
+                "<!DOCTYPE html>\n"
+                "<html lang=\"en\">\n"
+                "<head>\n"
+                "    <meta charset=\"UTF-8\">\n"
+                "    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n"
+                "    <meta http-equiv=\"X-UA-Compatible\" content=\"ie=edge\">\n"
+                "    <title>@yield('title')</title>\n"
+                "</head>\n"
+                "<body>\n"
+                "    @yield('content')\n"
+                "</body>\n"
+                "</html>\n"
+            )
+
+
+def generate_crudLINUX(project_name, install_dir, sql_file_path, model_namespace, db_user, db_password, db_name):
     # Read SQL file contents
     os.chdir(os.path.join(install_dir, project_name))
-    with open(sql_file_path, 'r') as f:
+    with open(sql_file_path, 'r', encoding='utf-8') as f:
         sql_file_contents = f.read()
 
     # Extract table names from SQL file contents
@@ -561,7 +766,7 @@ def generate_crud(project_name, install_dir, sql_file_path, model_namespace, db_
     # Generate migration, model, controller, and view files for each table
     for table_name in table_names:
         migration_name = f"create_{table_name}_table"
-        model_name = f"{model_namespace}\\{table_name.title()}"
+        model_name = f"{model_namespace}/{table_name.title()}"
 
         # Generate migration file
         os.system(f"php artisan make:migration {migration_name} --create={table_name}")
@@ -573,30 +778,128 @@ def generate_crud(project_name, install_dir, sql_file_path, model_namespace, db_
         os.system(f"php artisan make:controller {model_name}Controller --resource --model={model_name}")
         os.system(f"php artisan make:request {table_name.title()}Request")
         os.system(f"php artisan key:generate")
-        # Generate view files
+
+        # Generate view files for each table
         os.makedirs(os.path.join('resources', 'views', table_name.lower()), exist_ok=True)
+        with open(os.path.join('resources', 'views', table_name.lower(), 'create.blade.php'), 'w') as f:
+            f.write(
+                '@extends(\'layouts.base\')\n\n@section(\'content\')\n    <h1>{{ $title }}</h1>\n    <form method="POST" action="{{ route(\'' + table_name.lower() + '.store\') }}">\n        @csrf\n')
+            desc_output = subprocess.run(
+                ["mysql", "-u", db_user, "-p" + db_password, "-D", db_name, "-s", "-N", "-e", f"desc {table_name}"],
+                capture_output=True, text=True)
+            fields = desc_output.stdout.splitlines()
+            for field in fields:
+                if field.split()[0] == "id":
+                    continue
+                f.write(
+                    f'        <div class="form-group">\n            <label for="{field.split()[0]}">{field.split()[0]}</label>\n            <input type="text" name="{field.split()[0]}" class="form-control" id="{field.split()[0]}" placeholder="{field.split()[0]}">\n        </div>\n')
+            f.write(
+                f'        <button type="submit" class="btn btn-primary">Submit</button>\n    </form>\n@endsection\n')
+        with open(os.path.join('resources', 'views', table_name.lower(), 'edit.blade.php'), 'w') as f:
+            f.write(
+                '@extends(\'layouts.base\')\n\n@section(\'content\')\n    <h1>{{ $title }}</h1>\n    <form method="POST" action="{{ route(\'' + table_name.lower() + '.update\', [${table_name.lower().rstrip("s")}->{table_name}_id]) }}">\n        @csrf\n        @method(\'PUT\')\n')
+            desc_output = subprocess.run(
+                ["mysql", "-u", db_user, "-p" + db_password, "-D", db_name, "-s", "-N", "-e", f"desc {table_name}"],
+                capture_output=True, text=True)
+            fields = desc_output.stdout.splitlines()
+            for field in fields:
+                if field.split()[0] == "id":
+                    continue
+                f.write(
+                    f'        <div class="form-group">\n            <label for="{field.split()[0]}">{field.split()[0]}</label>\n            <input type="text" name="{field.split()[0]}" value="{{ ${table_name.lower().rstrip("s")}->{field.split()[0]} }}" class="form-control" id="{field.split()[0]}" placeholder="{field.split()[0]}">\n        </div>\n')
+            f.write(
+                f'        <button type="submit" class="btn btn-primary">Update</button>\n    </form>\n@endsection\n')
+        with open(os.path.join('resources', 'views', table_name.lower(), 'show.blade.php'), 'w') as f:
+            f.write(
+                '@extends(\'layouts.base\')\n\n@section(\'content\')\n    <h1>{{ $title }}</h1>\n    <table class="table">\n')
+            desc_output = subprocess.run(
+                ["mysql", "-u", db_user, "-p" + db_password, "-D", db_name, "-s", "-N", "-e", f"desc {table_name}"],
+                capture_output=True, text=True)
         with open(os.path.join('resources', 'views', table_name.lower(), 'index.blade.php'), 'w') as f:
-            f.write('@extends(\'layouts.app\')\n\n@section(\'content\')\n    <h1>{{ $title }}</h1>\n    <table class="table">\n        <thead>\n            <tr>\n')
-            with os.popen(f"mysql -u{db_user} -p{db_password} -D{db_name} -s -N -e \"desc {table_name};\"") as desc_output:
-                fields = desc_output.readlines()
-            for field in fields:
-                f.write(f'                <th scope="col">{field.strip()}</th>\n')
-            f.write('                <th scope="col">Actions</th>\n')
-            f.write('            </tr>\n        </thead>\n        <tbody>\n')
-            f.write(f'            @foreach (${table_name.lower()} as ${table_name.lower().rstrip("s")})\n')
-            f.write(f'                <tr>\n')
-            for field in fields:
-                f.write(f'                    <td>{{ ${table_name.lower().rstrip("s")}->{field.split()[0]} }}</td>\n')
-            f.write(f'                    <td><a href="{{ route(\'{table_name.lower()}.show\', [${table_name.lower().rstrip("s")}->{table_name}_id]) }}">Show</a> | <a href="{{ route(\'{table_name.lower()}.edit\', [${table_name.lower().rstrip("s")}->{table_name}_id]) }}">Edit</a> | <form action="{{ route(\'{table_name.lower()}.destroy\', [${table_name.lower().rstrip("s")}->{table_name}_id]) }}" method="POST">@csrf @method(\'DELETE\')<button type="submit" class="btn btn-link">Delete</button></form></td>\n')
-            f.write(f'                </tr>\n            @endforeach\n')
-            f.write('        </tbody>\n    </table>\n    <a href="{{ route(\'{table_name.lower()}.create\') }}" class="btn btn-primary">Create</a>\n')
-            f.write('@endsection\n')
+            f.write(
+                '@extends(\'layouts.base\')\n\n@section(\'content\')\n    <h1>index</h1>\n    <table class="table">\n')
+            desc_output = subprocess.run(
+                ["mysql", "-u", db_user, "-p" + db_password, "-D", db_name, "-s", "-N", "-e", f"desc {table_name}"],
+                capture_output=True, text=True)
+        # Generate resource routes for each table
+        with open(os.path.join('routes', 'web.php'), 'a') as f:
+            f.write(
+                f"\nRoute::get('{table_name.lower()}', [App\Http\Controllers\{table_name.title()}Controller::class, 'index']);\n")
+
+            # Generate controller file name based on table name
+            controller_name = table_name.title() + "Controller"
+            controller_file_name = controller_name + ".php"
+
+            # Generate controller file contents
+            controller_contents = "<?php\n\nnamespace App\Http\Controllers;\n\nuse Illuminate\Http\Request;\nuse App\\Models\\" + model_namespace + "\\" + table_name.title() + ";\n\nclass " + controller_name + " extends Controller\n{\n"
+
+            # Generate index function
+            controller_contents += "    public function index()\n    {\n        $" + table_name + " = " + table_name.title() + "::all();\n        return view('" + table_name + ".index', compact('" + table_name + "'));\n    }\n\n"
+
+            # Generate create function
+            controller_contents += "    public function create()\n    {\n        return view('" + table_name + ".create');\n    }\n\n"
+
+            # Generate store function
+            controller_contents += "    public function store(Request $request)\n    {\n        $request->validate([\n"
+            # Add validation rules for each field
+            for field in get_fieldsLINUX(table_name, db_user, db_password, db_name):
+                controller_contents += "            '" + field + "' => 'required',\n"
+            controller_contents += "        ]);\n\n        " + table_name.title() + "::create($request->all());\n\n        return redirect()->route('" + table_name + ".index')\n            ->with('success', '" + table_name.title() + " created successfully.');\n    }\n\n"
+
+            # Generate show function
+            controller_contents += "    public function show($" + table_name + ")\n    {\n        return view('" + table_name + ".show', compact('" + table_name + "'));\n    }\n\n"
+
+            # Generate edit function
+            controller_contents += "    public function edit($" + table_name + ")\n    {\n        return view('" + table_name + ".edit', compact('" + table_name + "'));\n    }\n\n"
+
+            # Generate update function
+            controller_contents += "    public function update(Request $request, $" + table_name + ")\n    {\n        $request->validate([\n"
+            # Add validation rules for each field
+            for field in get_fieldsLINUX(table_name, db_user, db_password, db_name):
+                controller_contents += "            '" + field + "' => 'required',\n"
+            controller_contents += "        ]);\n\n        $" + table_name + "->update($request->all());\n\n        return redirect()->route('" + table_name + ".index')\n            ->with('success', '" + table_name.title() + " updated successfully.');\n    }\n\n"
+
+            # Generate destroy function
+            controller_contents += "    public function destroy($" + table_name + ")\n    {\n        $" + table_name + "->delete();\n\n        return redirect()->route('" + table_name + ".index')\n            ->with('success', '" + table_name.title() + " deleted successfully.');\n    }\n}\n"
+
+            # Write controller file to disk
+            with open(os.path.join("app/Http/Controllers", controller_file_name), "w", encoding="utf-8") as f:
+                f.write(controller_contents)
+
+    # Determine path separator based on current OS
+    path_separator = os.path.sep
+
+    # Define path to base.blade.php file
+    base_blade_path = os.path.join("resources", "views", "layouts", "base.blade.php")
+
+    # Create directory if it doesn't exist
+    os.makedirs(os.path.dirname(base_blade_path), exist_ok=True)
+
+    # Create base.blade.php file if it doesn't exist
+    if not os.path.exists(base_blade_path):
+        with open(base_blade_path, "w") as f:
+            f.write(
+                "<!DOCTYPE html>\n"
+                "<html lang=\"en\">\n"
+                "<head>\n"
+                "    <meta charset=\"UTF-8\">\n"
+                "    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n"
+                "    <meta http-equiv=\"X-UA-Compatible\" content=\"ie=edge\">\n"
+                "    <title>@yield('title')</title>\n"
+                "</head>\n"
+                "<body>\n"
+                "    @yield('content')\n"
+                "</body>\n"
+                "</html>\n"
+            )
+
 
 def laravel():
     try:
         import pyfiglet
         ascii_banner = pyfiglet.figlet_format("Laravel (CRUD)")
         print(ascii_banner)
+        print("Host operating system: " + platform.system())
     except ImportError as e:
         pass  # module doesn't exist, deal with it.
     project_name = input('Enter the project name: ')
@@ -609,8 +912,12 @@ def laravel():
     model_namespace = input("Enter the model namespace: ")
 
     # Install Laravel and generate CRUD files
-    install_laravel(project_name, install_dir, db_name, db_user, db_password)
-    generate_crud(project_name, install_dir, sql_file_path, model_namespace, db_user, db_password, db_name)
+    if platform.system() == 'Windows':
+        install_laravel(project_name, install_dir, db_name, db_user, db_password)
+        generate_crud(project_name, install_dir, sql_file_path, model_namespace, db_user, db_password, db_name)
+    elif platform.system() == 'Linux':
+        install_laravel(project_name, install_dir, db_name, db_user, db_password)
+        generate_crudLINUX(project_name, install_dir, sql_file_path, model_namespace, db_user, db_password, db_name)
 
     # Update composer.json and install required packages
     os.chdir(os.path.join(install_dir, project_name))
@@ -640,29 +947,29 @@ def laravel():
 
 def install_laravel_only(project_name, install_dir, db_name, db_user, db_password):
     if platform.system() == 'Windows':
-        cmd = ['cmd', '/c', 'composer', 'create-project', '--prefer-dist', 'laravel/laravel:^8.0', os.path.join(install_dir, project_name)]
+        cmd = ['cmd', '/c', 'composer', 'create-project', '--prefer-dist', 'laravel/laravel:^10.0',
+               os.path.join(install_dir, project_name)]
     else:
-        cmd = ['composer', 'create-project', '--prefer-dist', 'laravel/laravel:^8.0', os.path.join(install_dir, project_name)]
+        cmd = ['composer', 'create-project', '--prefer-dist', 'laravel/laravel:^10.0',
+               os.path.join(install_dir, project_name)]
     subprocess.run(cmd)
     os.chdir(os.path.join(install_dir, project_name))
-    
+
     # Update composer.json to require PHP ^8.0 and illuminate/validation ^8.42
     with open('composer.json', 'r+') as f:
         composer_json = json.load(f)
-        composer_json['require']['php'] = '^8.1'
+        composer_json['require']['php'] = '*'
         composer_json['require']['illuminate/validation'] = '*'
         composer_json['require']['laravel/ui'] = '*'
         composer_json['require']['livewire/livewire'] = '*'
         f.seek(0)
         json.dump(composer_json, f, indent=4)
         f.truncate()
-    
+
     subprocess.run(['cp', '.env.example', '.env'])
     subprocess.run(['sed', '-i', 's/DB_DATABASE=.*/DB_DATABASE=' + db_name + '/', '.env'])
     subprocess.run(['sed', '-i', 's/DB_USERNAME=.*/DB_USERNAME=' + db_user + '/', '.env'])
     subprocess.run(['sed', '-i', 's/DB_PASSWORD=.*/DB_PASSWORD=' + db_password + '/', '.env'])
-
-
 
 
 def laravel_only():
@@ -681,9 +988,7 @@ def laravel_only():
     install_laravel_only(project_name, install_dir, db_name, db_user, db_password)
 
 
-
 def main():
-
     try:
         import pyfiglet
         ascii_banner = pyfiglet.figlet_format("Automation Scripts")
@@ -691,14 +996,16 @@ def main():
     except ImportError as e:
         pass  # module doesn't exist, deal with it.
 
-    choiceSelect = input("Please select one of the following that you want to install:\n\n[1] Electron basic template\n[2] Yii2 install autiomation\n[3] Laravel (with crud generator)\n")
+    choiceSelect = input(
+        "Please select one of the following that you want to install:\n\n[1] Electron basic template\n[2] Yii2 install autiomation\n[3] Laravel (with crud generator)\n")
 
     if choiceSelect == '1':
         electron()
     elif choiceSelect == '2':
         Yii()
     elif choiceSelect == '3':
-        laravelSelect = input("How do you want to install laravel?\n\n[1] With CRUD generator\n[2] Without CRUD generator (blank install)\n\n[99] Back\n")
+        laravelSelect = input(
+            "How do you want to install laravel?\n\n[1] With CRUD generator\n[2] Without CRUD generator (blank install)\n\n[99] Back\n")
         if laravelSelect == '1':
             laravel()
         elif laravelSelect == '2':
